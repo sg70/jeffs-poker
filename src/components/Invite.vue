@@ -4,7 +4,7 @@
 
         <div class="start">
             <q-r-code v-bind:text="this.inviteUrl"></q-r-code>
-            <p class="code">{{ this.$root.code }}</p>
+            <p class="code"><a v-bind:href="this.inviteUrl" target="_blank">{{ inviteRef }}</a></p>
             <button v-on:click="toEstimation">{{ start }}</button>
         </div>
     </div>
@@ -31,6 +31,7 @@ export default {
     return {
       msg: 'Invite players',
       start: 'Start game',
+      inviteRef: 'Use your camera app or copy the url',
       inviteUrl: ''
     }
   },
@@ -51,8 +52,9 @@ div.start {
   align-items: center;
 }
 
-p.code {
-  font-size: 1.25rem;
+p.code a {
+  text-decoration: none;
+  color: black;
 }
 
 </style>
