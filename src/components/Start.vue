@@ -1,13 +1,14 @@
 <template>
   <div class="start">
     <h1>{{ msg }}</h1>
-    <input placeholder="Enter Name" v-model="$root.name">
+    <input placeholder="Enter Name" v-model="$root.name" v-on:keyup.enter="toInvite">
     <p v-if="errors.length">
       <ul>
         <li v-for="error in errors" v-bind:key="error">{{ error }}</li>
       </ul>
     </p>
     <div class="selection">
+      <button v-if="sessionExists" v-on:click="reJoin" :disabled="clicked">{{ rejoin }}</button>
       <button v-on:click="toInvite" :disabled="clicked">{{ host }}</button>
     </div>
   </div>
@@ -19,11 +20,15 @@ export default {
   data () {
     return {
       msg: 'Welcome to Planning Poker',
-      join: 'Join Session',
+      rejoin: 'Rejoin Session',
       host: 'Host Session',
       errors: [],
-      clicked: false
+      clicked: false,
+      sessionExists: false
     }
+  },
+  mounted () {
+    this.checkSession()
   },
   methods: {
     checkName: function () {
@@ -48,6 +53,36 @@ export default {
             this.clicked = false
           })
         }
+      }
+    },
+    reJoin: function (event) {
+      this.$router.push('/estimation')
+    },
+    checkSession: function () {
+      this.sessionExists = false
+      if (this.$root.name !== '' && this.$root.code !== '' && this.$root.user !== '') {
+        this.$root.validateCode(this.$root.code).then(valid => {
+          if (valid === true) {
+            this.$root.userExists().then(exists => {
+              if (exists === true) {
+                this.sessionExists = true
+              } else {
+                this.$root.code = ''
+                this.$root.user = ''
+              }
+            })
+          } else {
+            this.$root.code = ''
+            this.$root.user = ''
+          }
+        }).catch(error => {
+          console.error(error)
+          this.$root.code = ''
+          this.$root.user = ''
+        })
+      } else {
+        this.$root.code = ''
+        this.$root.user = ''
       }
     }
   }

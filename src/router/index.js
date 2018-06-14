@@ -4,7 +4,7 @@ import Start from '@/components/Start'
 import Join from '@/components/Join'
 import Invite from '@/components/Invite'
 import Estimation from '@/components/Estimation'
-import Help from '@/components/Help'
+import About from '@/components/About'
 
 Vue.use(Router)
 
@@ -32,9 +32,9 @@ export default new Router({
       component: Estimation
     },
     {
-      path: '/help',
-      name: 'Help',
-      component: Help
+      path: '/about',
+      name: 'About',
+      component: About
     }
   ]
 })

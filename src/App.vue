@@ -1,7 +1,7 @@
 <template>
   <div id="app">
     <header>
-      <span><router-link to="/help">{{ help }}</router-link></span>
+      <span><router-link to="/about">{{ about }}</router-link></span>
       <span><router-link to="/">{{ title }}</router-link></span>
     </header>
     <main>
@@ -16,7 +16,7 @@ export default {
   data () {
     return {
       title: '⌂ Planning Poker',
-      help: '? Help'
+      about: '? About'
     }
   }
 }

@@ -40,7 +40,7 @@ export default {
               this.$root.setUsername(this.$root.name)
               this.$router.push('/estimation')
             } else {
-              this.$router.push('/join')
+              this.$router.push('/')
             }
           }).catch(error => {
             console.error('Error setUsername(): ' + error)
