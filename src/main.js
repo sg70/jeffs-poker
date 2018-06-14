@@ -146,7 +146,7 @@ new Vue({
           }
         })
 
-        this.estimation = sumEstimations / numEstimations
+        this.estimation = Math.round(sumEstimations / numEstimations)
 
         if (maxEstimation !== minEstimation) {
           this.users.forEach(user => {

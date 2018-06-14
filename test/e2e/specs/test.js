@@ -13,7 +13,7 @@ module.exports = {
       .waitForElementVisible('#app', 5000)
       .assert.elementPresent('.start')
       .assert.containsText('h1', 'Welcome to Planning Poker')
-      .assert.elementCount('button', 2)
+      .assert.elementCount('button', 1)
       .end()
   }
 }
