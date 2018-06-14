@@ -15,6 +15,7 @@
           <b>estimation</b><br />
           <ul>
             <li v-if="$root.estimation >= 0">{{ $root.estimation }}</li>
+            <li v-else-if="$root.estimation === -6">↻</li>
             <li v-else>⏳</li>
           </ul>
         </p>

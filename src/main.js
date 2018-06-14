@@ -129,31 +129,46 @@ new Vue({
       if (user === undefined) {
         var numEstimations = 0
         var sumEstimations = 0
-        var maxEstimation
-        var minEstimation
+        var estimatedValues = []
 
-        this.users.forEach(user => {
-          user.showEstimate = user.estimate
-          if (user.estimate >= 0) {
-            numEstimations++
-            sumEstimations += user.estimate
-            if (maxEstimation === undefined || user.estimate > maxEstimation) {
-              maxEstimation = user.estimate
-            }
-            if (minEstimation === undefined || user.estimate < minEstimation) {
-              minEstimation = user.estimate
-            }
+        this.estimationValues.filter(v => v.key >= 0).forEach(v => {
+          var count = this.users.filter(u => u.estimate === v.key).length
+          if (count > 0) {
+            numEstimations += count
+            sumEstimations += (v.key * count)
+            estimatedValues.push(v.key)
           }
         })
 
-        this.estimation = Math.round(sumEstimations / numEstimations)
+        var minEstimation = 0
+        var maxEstimation = 0
+        if (estimatedValues.length > 1) {
+          minEstimation = estimatedValues[0]
+          maxEstimation = estimatedValues[estimatedValues.length - 1]
+        }
 
-        if (maxEstimation !== minEstimation) {
-          this.users.forEach(user => {
+        this.users.forEach(user => {
+          user.showEstimate = user.estimate
+          if (maxEstimation !== minEstimation) {
             if (user.estimate === maxEstimation) {
               user.rank = 1
             } else if (user.estimate === minEstimation) {
               user.rank = -1
+            }
+          }
+        })
+
+        if (estimatedValues.length === 1) {
+          this.estimation = Math.round(sumEstimations / numEstimations)
+        } else {
+          var steps = 0
+          this.estimation = -6
+          this.estimationValues.forEach(v => {
+            if (v.key >= minEstimation) {
+              if (v.key === maxEstimation && steps < 3) {
+                this.estimation = Math.round(sumEstimations / numEstimations)
+              }
+              steps++
             }
           })
         }
