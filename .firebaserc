@@ -1,5 +1,6 @@
 {
   "projects": {
-    "default": "jeffs-poker"
+    "default": "jeffs-poker",
+    "staging": "sg-testproject"
   }
 }
