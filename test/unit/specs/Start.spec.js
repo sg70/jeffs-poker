@@ -15,6 +15,9 @@ describe('Start.vue', () => {
           return new Promise((resolve) => {
             resolve(true)
           })
+        },
+        hasUserIdAndSession: function () {
+          return false
         }
       },
       components: { 'test': Start }
@@ -41,6 +44,9 @@ describe('Start.vue', () => {
           return new Promise((resolve) => {
             resolve(true)
           })
+        },
+        hasUserIdAndSession: function () {
+          return true
         }
       },
       components: { 'test': Start }
@@ -67,6 +73,9 @@ describe('Start.vue', () => {
           return new Promise((resolve) => {
             resolve(false)
           })
+        },
+        hasUserIdAndSession: function () {
+          return true
         }
       },
       components: { 'test': Start }
@@ -88,6 +97,9 @@ describe('Start.vue', () => {
           return new Promise((resolve) => {
             resolve(false)
           })
+        },
+        hasUserIdAndSession: function () {
+          return true
         }
       },
       components: { 'test': Start }

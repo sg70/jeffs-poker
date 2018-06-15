@@ -32,7 +32,7 @@ export default {
   },
   methods: {
     checkName: function () {
-      if (this.$root.name !== '') {
+      if (this.$root.hasUsername()) {
         return true
       } else {
         this.errors.push('Please provide a name.')
@@ -60,7 +60,7 @@ export default {
     },
     checkSession: function () {
       this.sessionExists = false
-      if (this.$root.name !== '' && this.$root.code !== '' && this.$root.user !== '') {
+      if (this.$root.hasUserIdAndSession()) {
         this.$root.validateCode(this.$root.code).then(valid => {
           if (valid === true) {
             this.$root.userExists().then(exists => {

@@ -231,8 +231,14 @@ new Vue({
     hasUsername: function () {
       return this.name !== ''
     },
+    hasUserId: function () {
+      return this.user !== ''
+    },
     hasUserAndSession: function () {
       return this.hasSessionCode() && this.hasUsername()
+    },
+    hasUserIdAndSession: function () {
+      return this.hasSessionCode() && this.hasUsername() && this.hasUserId()
     }
   },
   template: '<App/>',
