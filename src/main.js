@@ -1,6 +1,7 @@
 // The Vue build version to load with the `import` command
 // (runtime-only or standalone) has been set in webpack.base.conf with an alias.
 import Vue from 'vue'
+import VueAnalytics from 'vue-analytics'
 import App from './App'
 import router from './router'
 import firebase from '@firebase/app'
@@ -14,6 +15,22 @@ firebase.initializeApp({
   apiKey: process.env.FIREBASE_APIKEY, // Auth / General Use
   databaseURL: process.env.FIREBASE_DBURL, // Realtime Database
   projectId: process.env.FIREBASE_PROJECT
+})
+
+Vue.use(VueAnalytics, {
+  id: process.env.GA_TRACKING_ID,
+  checkDuplicatedScript: true,
+  router,
+  autoTracking: {
+    screenview: true,
+    exception: true
+  },
+  debug: {
+    enabled: process.env.NODE_ENV !== 'production'
+  },
+  set: [
+    { field: 'anonymizeIp', value: true }
+  ]
 })
 
 /* eslint-disable no-new */

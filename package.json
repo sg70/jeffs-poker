@@ -17,6 +17,7 @@
     "@firebase/app": "^0.3.3",
     "@firebase/firestore": "^0.5.4",
     "vue": "^2.5.2",
+    "vue-analytics": "^5.12.2",
     "vue-qrcode-component": "^2.1.1",
     "vue-router": "^3.0.1"
   },
