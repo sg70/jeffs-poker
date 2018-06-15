@@ -14,16 +14,12 @@ describe('Estimation.vue', () => {
       template: '<div><test></test></div>',
       router: router,
       data: {
-        code: '',
-        name: '',
         users: [],
         estimationValues: []
       },
       methods: {
-        validateCode: function (inCode) {
-          return new Promise((resolve) => {
-            resolve(true)
-          })
+        hasUserAndSession: function () {
+          return false
         }
       },
       components: { 'test': Estimation }
@@ -31,24 +27,21 @@ describe('Estimation.vue', () => {
     expect(vm.$el.querySelector('h1').textContent).to.equal('Estimation')
     done()
   })
+
   it('Estimation: test 02', done => {
     const vm = new Vue({
       template: '<div><test></test></div>',
       router: router,
       data: {
-        code: 'code',
-        name: 'name',
         users: [],
         estimationValues: []
       },
       methods: {
-        validateCode: function (inCode) {
-          return new Promise((resolve) => {
-            resolve(false)
-          })
-        },
         getUsers: function () {
           this.users = []
+        },
+        hasUserAndSession: function () {
+          return true
         }
       },
       components: { 'test': Estimation }

@@ -21,23 +21,19 @@ export default {
     return {
       errors: [],
       msg: 'Join game',
-      code: '',
       enter: 'Join',
       clicked: false
     }
-  },
-  mounted () {
-    this.code = this.id
   },
   methods: {
     toEstimation: function (event) {
       if (this.clicked === false) {
         this.clicked = true
-        if (this.$root.name !== '') {
-          this.$root.validateCode(this.code).then(valid => {
+        if (this.$root.hasUsername()) {
+          this.$root.validateCode(this.id).then(valid => {
             this.errors = []
             if (valid) {
-              this.$root.setUsername(this.$root.name)
+              this.$root.setUsername()
               this.$router.push('/estimation')
             } else {
               this.$router.push('/')

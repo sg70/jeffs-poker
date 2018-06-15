@@ -84,7 +84,6 @@ new Vue({
           this.code = docRef.id
           resolve(true)
         }).catch(error => {
-          console.error('Error getCode(): ', error)
           reject(error)
         })
       })
@@ -95,10 +94,8 @@ new Vue({
         docRef.get().then(doc => {
           if (doc.exists) {
             this.code = doc.id
-            resolve(true)
-          } else {
-            resolve(false)
           }
+          resolve(doc.exists)
         }).catch(error => {
           reject(error)
         })
@@ -196,19 +193,15 @@ new Vue({
     userExists: function () {
       return new Promise((resolve, reject) => {
         this.db.collection('sessions').doc(this.code).collection('users').doc(this.user).get().then(user => {
-          if (user.exists) {
-            resolve(true)
-          } else {
-            resolve(false)
-          }
+          resolve(user.exists)
         }).catch(error => {
           reject(error)
         })
       })
     },
-    setUsername: function (username) {
+    setUsername: function () {
       this.db.collection('sessions').doc(this.code).collection('users').add({
-        name: username,
+        name: this.name,
         estimate: -4,
         rank: 0
       }).then(userRef => {
@@ -231,6 +224,15 @@ new Vue({
           })
         })
       })
+    },
+    hasSessionCode: function () {
+      return this.code !== ''
+    },
+    hasUsername: function () {
+      return this.name !== ''
+    },
+    hasUserAndSession: function () {
+      return this.hasSessionCode() && this.hasUsername()
     }
   },
   template: '<App/>',

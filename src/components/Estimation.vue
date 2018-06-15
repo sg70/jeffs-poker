@@ -23,12 +23,12 @@
         <p v-if="$root.estimationValues.length" class="cards">
           <b>poker card(s):</b><br />
           <ul>
-            <li v-for="estimateValue in $root.estimationValues" v-bind:key="estimateValue.key"  v-if="estimateValue.show == true" v-on:click="estimate(estimateValue.key)"><span>{{ estimateValue.value }}</span></li>
+            <li v-for="estimateValue in $root.estimationValues" v-bind:key="estimateValue.key"  v-if="estimateValue.show == true" v-on:click="$root.setEstimation(estimateValue.key)"><span>{{ estimateValue.value }}</span></li>
           </ul>
         </p>
 
         <p v-if="$root.isHost">
-          <button v-on:click="toNext">{{ next }}</button>
+          <button v-on:click="$root.resetEstimation()">{{ next }}</button>
         </p>
     </div>
 </template>
@@ -43,20 +43,10 @@ export default {
     }
   },
   mounted () {
-    if (this.$root.code !== '' && this.$root.name !== '') {
+    if (this.$root.hasUserAndSession() === true) {
       this.$root.getUsers()
     } else {
-      console.log(this.$root.code)
-      console.log(this.$root.name)
       this.$router.push('/')
-    }
-  },
-  methods: {
-    estimate: function (value) {
-      this.$root.setEstimation(value)
-    },
-    toNext: function (event) {
-      this.$root.resetEstimation()
     }
   }
 }

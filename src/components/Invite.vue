@@ -19,7 +19,7 @@ export default {
     QRCode
   },
   mounted () {
-    if (this.$root.code !== '') {
+    if (this.$root.hasSessionCode() === true) {
       const a = document.createElement('a')
       a.href = this.$router.resolve('/join/' + this.$root.code).href
       this.inviteUrl = a.protocol + '//' + a.host + a.pathname + a.search + a.hash
@@ -37,7 +37,7 @@ export default {
   },
   methods: {
     toEstimation: function (event) {
-      this.$root.setUsername(this.$root.name)
+      this.$root.setUsername()
       this.$router.push('/estimation')
     }
   }
