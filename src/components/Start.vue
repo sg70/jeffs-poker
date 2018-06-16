@@ -67,22 +67,18 @@ export default {
               if (exists === true) {
                 this.sessionExists = true
               } else {
-                this.$root.code = ''
-                this.$root.user = ''
+                this.$root.clearUserIdAndSession()
               }
             })
           } else {
-            this.$root.code = ''
-            this.$root.user = ''
+            this.$root.clearUserIdAndSession()
           }
         }).catch(error => {
           console.error(error)
-          this.$root.code = ''
-          this.$root.user = ''
+          this.$root.clearUserIdAndSession()
         })
       } else {
-        this.$root.code = ''
-        this.$root.user = ''
+        this.$root.clearUserIdAndSession()
       }
     }
   }

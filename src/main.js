@@ -144,47 +144,39 @@ new Vue({
         var numEstimations = 0
         var sumEstimations = 0
         var estimatedValues = []
+        var steps = 0
+        var countSteps = false
+        var seenSteps = 0
 
         this.estimationValues.filter(v => v.key >= 0).forEach(v => {
+          if (countSteps === true) {
+            steps++
+          }
           var count = this.users.filter(u => u.estimate === v.key).length
           if (count > 0) {
+            countSteps = true
             numEstimations += count
             sumEstimations += (v.key * count)
             estimatedValues.push(v.key)
+            seenSteps = steps
           }
         })
-
-        var minEstimation = 0
-        var maxEstimation = 0
-        if (estimatedValues.length > 1) {
-          minEstimation = estimatedValues[0]
-          maxEstimation = estimatedValues[estimatedValues.length - 1]
-        }
 
         this.users.forEach(user => {
           user.showEstimate = user.estimate
-          if (maxEstimation !== minEstimation) {
-            if (user.estimate === maxEstimation) {
-              user.rank = 1
-            } else if (user.estimate === minEstimation) {
+          if (estimatedValues.length > 1) {
+            if (user.estimate === estimatedValues[0]) {
               user.rank = -1
+            } else if (user.estimate === estimatedValues[estimatedValues.length - 1]) {
+              user.rank = 1
             }
           }
         })
 
-        if (estimatedValues.length === 1) {
+        if (seenSteps < 3) {
           this.estimation = Math.round(sumEstimations / numEstimations)
         } else {
-          var steps = 0
           this.estimation = -6
-          this.estimationValues.forEach(v => {
-            if (v.key >= minEstimation) {
-              if (v.key === maxEstimation && steps < 3) {
-                this.estimation = Math.round(sumEstimations / numEstimations)
-              }
-              steps++
-            }
-          })
         }
       } else {
         this.estimation = -4
@@ -239,6 +231,10 @@ new Vue({
     },
     hasUserIdAndSession: function () {
       return this.hasSessionCode() && this.hasUsername() && this.hasUserId()
+    },
+    clearUserIdAndSession: function () {
+      this.user = ''
+      this.code = ''
     }
   },
   template: '<App/>',
