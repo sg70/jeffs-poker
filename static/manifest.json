@@ -1,6 +1,6 @@
 {
-  "name": "jeffs-pocker",
-  "short_name": "jpocker",
+  "name": "jeffs-poker",
+  "short_name": "jpoker",
   "icons": [
     {
       "src": "/static/img/icons/android-chrome-192x192.png",
