@@ -41,10 +41,12 @@ new Vue({
   created () {
     this.db = firebase.firestore()
     this.db.settings({timestampsInSnapshots: true})
+    this.sessions = this.db.collection('sessions')
   },
   data: {
     // database
     db: null,
+    sessions: null,
     // session id
     code: '',
     // user is host of the session
@@ -78,7 +80,7 @@ new Vue({
   methods: {
     getCode: function () {
       return new Promise((resolve, reject) => {
-        this.db.collection('sessions').add({
+        this.sessions.add({
           created: firebase.firestore.FieldValue.serverTimestamp()
         }).then(docRef => {
           this.code = docRef.id
@@ -90,7 +92,7 @@ new Vue({
     },
     validateCode: function (inCode) {
       return new Promise((resolve, reject) => {
-        var docRef = this.db.collection('sessions').doc(inCode)
+        var docRef = this.sessions.doc(inCode)
         docRef.get().then(doc => {
           if (doc.exists) {
             this.code = doc.id
@@ -103,7 +105,7 @@ new Vue({
     },
     getUsers: function () {
       this.users = []
-      this.db.collection('sessions').doc(this.code).collection('users').onSnapshot(snapshot => {
+      this.sessions.doc(this.code).collection('users').onSnapshot(snapshot => {
         snapshot.docChanges().forEach(change => {
           if (change.type === 'removed') {
             this.users = this.users.filter(o => o.id !== change.doc.id)
@@ -131,9 +133,6 @@ new Vue({
         })
         this.updateEstimations()
       })
-    },
-    getEstimationValues: function () {
-      return this.estimationValues
     },
     getEstimationValue: function (key) {
       return this.estimationValues.find(o => o.key === key)
@@ -184,7 +183,7 @@ new Vue({
     },
     userExists: function () {
       return new Promise((resolve, reject) => {
-        this.db.collection('sessions').doc(this.code).collection('users').doc(this.user).get().then(user => {
+        this.sessions.doc(this.code).collection('users').doc(this.user).get().then(user => {
           resolve(user.exists)
         }).catch(error => {
           reject(error)
@@ -192,7 +191,7 @@ new Vue({
       })
     },
     setUsername: function () {
-      this.db.collection('sessions').doc(this.code).collection('users').add({
+      this.sessions.doc(this.code).collection('users').add({
         name: this.name,
         estimate: -4,
         rank: 0
@@ -203,11 +202,11 @@ new Vue({
       })
     },
     setEstimation: function (value) {
-      var userRef = this.db.collection('sessions').doc(this.code).collection('users').doc(this.user)
+      var userRef = this.sessions.doc(this.code).collection('users').doc(this.user)
       userRef.update({estimate: value})
     },
     resetEstimation: function () {
-      var userCollectionRef = this.db.collection('sessions').doc(this.code).collection('users')
+      var userCollectionRef = this.sessions.doc(this.code).collection('users')
       userCollectionRef.get().then(snapshot => {
         snapshot.forEach(user => {
           userCollectionRef.doc(user.id).update({estimate: -4, rank: 0}).then(doc => {
