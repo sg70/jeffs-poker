@@ -2,7 +2,7 @@
     <div class="join">
         <h1>{{ msg }}</h1>
         <div class="input">
-          <input placeholder="Enter Name" v-model="$root.name" v-on:keyup.enter="toEstimation">
+          <input type="text" name="name" placeholder="Enter Name" v-model="$root.name" v-on:keyup.enter="toEstimation">
           <p v-if="errors.length">
             <ul>
               <li v-for="error in errors" v-bind:key="error">{{ error }}</li>

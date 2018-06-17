@@ -14,6 +14,16 @@ module.exports = {
       .assert.elementPresent('.start')
       .assert.containsText('h1', 'Welcome to Planning Poker')
       .assert.elementCount('button', 1)
+      .assert.elementCount('input[type=text]', 1)
+      .setValue('input[type=text]', 'e2e')
+      .click('button')
+      .waitForElementVisible('div[class=invite]')
+      .assert.containsText('h1', 'Invite players')
+      .assert.elementCount('button', 1)
+      .click('button')
+      .waitForElementVisible('div[class=estimation]')
+      .assert.containsText('h1', 'Estimation')
+      .click('.cards li')
       .end()
   }
 }

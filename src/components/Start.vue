@@ -1,7 +1,7 @@
 <template>
   <div class="start">
     <h1>{{ msg }}</h1>
-    <input placeholder="Enter Name" v-model="$root.name" v-on:keyup.enter="toInvite">
+    <input type="text" name="name" placeholder="Enter Name" v-model="$root.name" v-on:keyup.enter="toInvite">
     <p v-if="errors.length">
       <ul>
         <li v-for="error in errors" v-bind:key="error">{{ error }}</li>
