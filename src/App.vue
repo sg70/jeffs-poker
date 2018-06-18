@@ -78,6 +78,7 @@ a {
 .tabbar li {
   line-height: 1.5rem;
   padding: 0.75rem;
+  cursor: pointer;
 }
 
 h1 {

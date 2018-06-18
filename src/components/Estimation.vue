@@ -59,14 +59,14 @@ div.estimation {
   display: grid;
   border: none;
   color: #000;
-  padding: 16px;
+  padding: 1rem;
   text-align: center;
   text-decoration: none;
   float: left;
   font-size: 1rem;
   line-height: 1.5rem;
   border-radius: 8px;
-  margin: 8px;
+  margin: 0.5rem;
 }
 
 ul.estimates li {
@@ -75,12 +75,14 @@ ul.estimates li {
 
 ul.cards li {
   background-color: #007aff;
+  color: #fff;
   cursor: pointer;
 }
 
 ul.estimate li {
   background-color: #777;
   color:#fff;
+  cursor: pointer;
 }
 
 ul.estimates li.max,
