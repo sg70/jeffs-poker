@@ -1,12 +1,9 @@
 <template>
     <div class="invite">
         <h1>{{ msg }}</h1>
-
-        <div class="start">
-            <q-r-code v-bind:text="this.inviteUrl"></q-r-code>
-            <p class="code"><a v-bind:href="this.inviteUrl" target="_blank">{{ inviteRef }}</a></p>
-            <button v-on:click="toEstimation">{{ start }}</button>
-        </div>
+        <q-r-code v-bind:text="this.inviteUrl"></q-r-code>
+        <p class="code"><a v-bind:href="this.inviteUrl" target="_blank">{{ inviteRef }}</a></p>
+        <button v-on:click="toEstimation">{{ start }}</button>
     </div>
 </template>
 
@@ -44,17 +41,20 @@ export default {
 }
 </script>
 
-<style scoped>
-
-div.start {
+<style>
+div.invite {
+  text-align: center;
+  align-items: center;
   display: flex;
   flex-direction: column;
-  align-items: center;
+}
+
+p.code {
+  margin: 1rem auto;
 }
 
 p.code a {
   text-decoration: none;
   color: black;
 }
-
 </style>

@@ -1,15 +1,11 @@
 <template>
     <div class="join">
-        <h1>{{ msg }}</h1>
-        <div class="input">
-          <input type="text" name="name" placeholder="Enter Name" v-model="$root.name" v-on:keyup.enter="toEstimation">
-          <p v-if="errors.length">
-            <ul>
-              <li v-for="error in errors" v-bind:key="error">{{ error }}</li>
-            </ul>
-          </p>
-          <button v-on:click="toEstimation" :disabled="clicked">{{ enter }}</button>
-        </div>
+      <h1>{{ msg }}</h1>
+      <input type="text" name="name" placeholder="Enter Name" v-model="$root.name" v-on:keyup.enter="toEstimation">
+      <ul v-if="errors.length">
+        <li v-for="error in errors" v-bind:key="error">{{ error }}</li>
+      </ul>
+      <button v-on:click="toEstimation" :disabled="clicked">{{ enter }}</button>
     </div>
 </template>
 
@@ -53,16 +49,18 @@ export default {
 }
 </script>
 
-<style scoped>
-
-div.input {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
+<style>
+div.join {
+  text-align: center;
 }
 
-div.input input {
-  font-size: 1.5rem;
+div.join ul {
+  list-style: none;
 }
 
+div.join ul li {
+  text-align: left;
+  margin: 1rem auto;
+  width: 67%;
+}
 </style>

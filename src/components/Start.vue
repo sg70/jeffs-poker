@@ -2,15 +2,11 @@
   <div class="start">
     <h1>{{ msg }}</h1>
     <input type="text" name="name" placeholder="Enter Name" v-model="$root.name" v-on:keyup.enter="toInvite">
-    <p v-if="errors.length">
-      <ul>
-        <li v-for="error in errors" v-bind:key="error">{{ error }}</li>
-      </ul>
-    </p>
-    <div class="selection">
-      <button v-if="sessionExists" v-on:click="reJoin" :disabled="clicked">{{ rejoin }}</button>
-      <button v-on:click="toInvite" :disabled="clicked">{{ host }}</button>
-    </div>
+    <ul v-if="errors.length">
+      <li v-for="error in errors" v-bind:key="error">{{ error }}</li>
+    </ul>
+    <button v-if="sessionExists" v-on:click="reJoin" :disabled="clicked">{{ rejoin }}</button>
+    <button v-on:click="toInvite" :disabled="clicked">{{ host }}</button>
   </div>
 </template>
 
@@ -19,9 +15,9 @@ export default {
   name: 'Start',
   data () {
     return {
-      msg: 'Welcome to Planning Poker',
+      msg: 'Jeff’s Planning Poker',
       rejoin: 'Rejoin Session',
-      host: 'Host Session',
+      host: 'Start Session',
       errors: [],
       clicked: false,
       sessionExists: false
@@ -85,12 +81,20 @@ export default {
 }
 </script>
 
-<style scoped>
-
-div.selection {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
+<style>
+div.start {
+  text-align: center;
 }
+
+div.start ul {
+  list-style: none;
+}
+
+div.start ul li {
+  text-align: left;
+  margin: 1rem auto;
+  width: 67%;
+}
+
 
 </style>

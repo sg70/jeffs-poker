@@ -1,36 +1,24 @@
 <template>
-    <div class="estimation">
-        <h1>{{ msg }}</h1>
-        <p v-if="$root.users.length > 0" class="estimates">
-          <b>participant(s):</b><br />
-          <ul>
-            <li v-for="user in $root.users" v-bind:key="user.id" v-bind="{ 'value': user.showEstimate }" v-bind:class="{ 'max': (user.rank > 0), 'min': (user.rank < 0) }">
-              <span>{{ $root.getEstimationValue(user.showEstimate).value }}</span>
-              <span>{{ user.name }}</span>
-            </li>
-          </ul>
-        </p>
+  <div class="estimation">
+    <h1>{{ msg }}</h1>
+    <ul v-if="$root.users.length > 0" class="estimates">
+      <li v-for="user in $root.users" v-bind:key="user.id" v-bind="{ 'value': user.showEstimate }" v-bind:class="{ 'max': (user.rank > 0), 'min': (user.rank < 0) }">
+        <span>{{ $root.getEstimationValue(user.showEstimate).value }}</span>
+        <span>{{ user.name }}</span>
+      </li>
+    </ul>
 
-        <p class="estimate">
-          <b>estimation</b><br />
-          <ul>
-            <li v-if="$root.estimation >= 0">{{ $root.estimation }}</li>
-            <li v-else-if="$root.estimation === -6">↻</li>
-            <li v-else>⏳</li>
-          </ul>
-        </p>
+    <span>Average Estimation</span>
+    <ul class="estimate">
+      <li v-if="$root.estimation >= 0">{{ $root.estimation }}</li>
+      <li v-else-if="$root.estimation === -6">↻</li>
+      <li v-else>⏳</li>
+    </ul>
 
-        <p v-if="$root.estimationValues.length" class="cards">
-          <b>poker card(s):</b><br />
-          <ul>
-            <li v-for="estimateValue in $root.estimationValues" v-bind:key="estimateValue.key"  v-if="estimateValue.show == true" v-on:click="$root.setEstimation(estimateValue.key)"><span>{{ estimateValue.value }}</span></li>
-          </ul>
-        </p>
-
-        <p v-if="$root.isHost">
-          <button v-on:click="$root.resetEstimation()">{{ next }}</button>
-        </p>
-    </div>
+    <ul v-if="$root.estimationValues.length" class="cards">
+      <li v-for="estimateValue in $root.estimationValues" v-bind:key="estimateValue.key"  v-if="estimateValue.show == true" v-on:click="$root.setEstimation(estimateValue.key)"><span>{{ estimateValue.value }}</span></li>
+    </ul>
+  </div>
 </template>
 
 <script>
@@ -38,8 +26,7 @@ export default {
   name: 'Estimation',
   data () {
     return {
-      msg: 'Estimation',
-      next: 'Next Estimation'
+      msg: 'Estimation'
     }
   },
   mounted () {
@@ -54,17 +41,25 @@ export default {
 
 <style>
 
+div.estimation {
+  text-align: center;
+  display: block;
+  width: 100%;
+}
+
 .estimation ul {
   list-style: none;
   display: inline-block;
+  margin: 0;
+  width: 100%;
+  padding: 0.5rem;
 }
 
 .estimation ul li {
   display: grid;
-  float: left;
   border: none;
-  color: black;
-  padding: 16px 16px;
+  color: #000;
+  padding: 16px;
   text-align: center;
   text-decoration: none;
   float: left;
@@ -74,28 +69,25 @@ export default {
   margin: 8px;
 }
 
-p.estimates ul li {
-  background-color: lightskyblue;
+ul.estimates li {
+  background-color: #ccc;
 }
 
-p.cards ul li {
-  background-color: lightcoral;
-  padding: 16px;
+ul.cards li {
+  background-color: #007aff;
   cursor: pointer;
 }
 
-p.estimate ul li {
-  background-color: darkblue;
-  color: white;
-  padding: 16px;
+ul.estimate li {
+  background-color: #777;
+  color:#fff;
 }
 
-p.estimates ul li.max,
-p.estimates ul li.min {
+ul.estimates li.max,
+ul.estimates li.min {
   font-weight: bold;
-  background-color: azure;
+  background-color:#fff;
   border: 2px red solid;
-  }
-
+}
 
 </style>

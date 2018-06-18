@@ -1,12 +1,15 @@
 <template>
   <div id="app">
-    <header>
-      <span><router-link to="/about">{{ about }}</router-link></span>
-      <span><router-link to="/">{{ title }}</router-link></span>
-    </header>
-    <main>
+    <content>
       <router-view></router-view>
-    </main>
+    </content>
+    <footer class="tabbar">
+      <ul>
+        <li class="one"><router-link to="/">{{ title }}</router-link></li>
+        <li v-if="$root.isHost" v-on:click="$root.resetEstimation()">{{ next }}</li>
+        <li class="two"><router-link to="/about">{{ about }}</router-link></li>
+      </ul>
+    </footer>
   </div>
 </template>
 
@@ -16,52 +19,83 @@ export default {
   data () {
     return {
       title: '⌂ Planning Poker',
-      about: '? About'
+      about: '? About',
+      next: '↻ Next'
     }
   }
 }
 </script>
 
 <style>
-body {
-  margin: 0;
-}
-
-#app {
-  font-family: 'Avenir', Helvetica, Arial, sans-serif;
+html,body {
+  font-family: "SFNSText", "Segoe UI", "Roboto", "Oxygen", "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  color: #2c3e50;
-}
-
-main {
-  text-align: center;
-  margin-top: 40px;
-}
-
-header {
   margin: 0;
-  height: 48px;
-  padding: 0 8px 0 16px;
-  background-color: lightgray;
-  color: black;
+  padding: 0;
+  text-rendering: optimizeLegibility;
+  height: 100%;
+  background-color: #eee;
+  color:#000;
+  font-size: 15px;
+}
+@media (min-width: 375px)  {
+  html,body {
+    font-size: 18px;
+  }
 }
 
-header span {
-  display: block;
-  float: left;
-  position: relative;
-  letter-spacing: .02em;
-  font-weight: 400;
-  box-sizing: border-box;
-  padding-top: 16px;
+@media (min-width: 600px)  {
+  html,body {
+    font-size: 24px;
+  }
 }
 
-header a {
-  color: black;
-  text-decoration: none;
-  padding-right: 32px;
+a {
+    color: inherit;
+    text-decoration: none;
+  }
+
+#app {
+  flex: 1
 }
+
+.tabbar {
+  position: fixed;
+  z-index: 100;
+  bottom: 0%;
+  width: 100%;
+  background: linear-gradient(#aaa, #ddd);
+}
+
+.tabbar ul {
+  list-style: none;
+  display: flex;
+  padding: 0;
+  margin: 0;
+}
+
+.tabbar li {
+  line-height: 1.5rem;
+  padding: 0.75rem;
+}
+
+h1 {
+  font-size: 1.5rem;
+  font-weight: normal;
+  width: 100%;
+  text-align: center;
+  line-height: 2rem;
+}
+
+input {
+  font-size: 1.25rem;
+  line-height: 2rem;
+  border: 1px solid gray;
+  margin: 2rem auto;
+  width: 67%;
+}
+
 
 button {
   background-color: gray;
@@ -70,11 +104,12 @@ button {
   padding: 16px;
   text-align: center;
   text-decoration: none;
-  display: block;
-  float: left;
-  font-size: 1.25rem;
+  font-size: 1.5rem;
+  line-height: 2rem;
   border-radius: 4px;
-  margin: 8px;
+  margin: 1rem auto;
+  box-shadow: 4px 8px 6px #aaa;
+  width: 67%
 }
 
 button:hover {
@@ -85,12 +120,6 @@ button:hover {
 button:disabled {
   background-color: lightgray;
   color: black;
-}
-
-input {
-  font-size: 1rem;
-  border: 1px solid gray;
-  margin: 8px;
 }
 
 </style>

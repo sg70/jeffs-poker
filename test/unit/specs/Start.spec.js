@@ -24,7 +24,7 @@ describe('Start.vue', () => {
       },
       components: { 'test': Start }
     }).$mount()
-    expect(vm.$el.querySelector('h1').textContent).to.equal('Welcome to Planning Poker')
+    expect(vm.$el.querySelector('h1').textContent).to.equal('Jeff’s Planning Poker')
     done()
   })
 
@@ -55,7 +55,7 @@ describe('Start.vue', () => {
       },
       components: { 'test': Start }
     }).$mount()
-    expect(vm.$el.querySelector('h1').textContent).to.equal('Welcome to Planning Poker')
+    expect(vm.$el.querySelector('h1').textContent).to.equal('Jeff’s Planning Poker')
     done()
   })
 
@@ -86,7 +86,7 @@ describe('Start.vue', () => {
       },
       components: { 'test': Start }
     }).$mount()
-    expect(vm.$el.querySelector('h1').textContent).to.equal('Welcome to Planning Poker')
+    expect(vm.$el.querySelector('h1').textContent).to.equal('Jeff’s Planning Poker')
     done()
   })
 
@@ -112,7 +112,7 @@ describe('Start.vue', () => {
       },
       components: { 'test': Start }
     }).$mount()
-    expect(vm.$el.querySelector('h1').textContent).to.equal('Welcome to Planning Poker')
+    expect(vm.$el.querySelector('h1').textContent).to.equal('Jeff’s Planning Poker')
     done()
   })
 })
