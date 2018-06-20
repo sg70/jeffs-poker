@@ -5,8 +5,8 @@
     <ul v-if="errors.length">
       <li v-for="error in errors" v-bind:key="error">{{ error }}</li>
     </ul>
-    <button v-if="sessionExists" v-on:click="reJoin" :disabled="clicked">{{ rejoin }}</button>
     <button v-on:click="toInvite" :disabled="clicked">{{ host }}</button>
+    <button v-if="sessionExists" v-on:click="reJoin" :disabled="clicked">{{ rejoin }}</button>
   </div>
 </template>
 
