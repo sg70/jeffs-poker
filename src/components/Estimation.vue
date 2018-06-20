@@ -3,16 +3,23 @@
     <h1>{{ msg }}</h1>
     <ul v-if="$root.users.length > 0" class="estimates">
       <li v-for="user in $root.users" v-bind:key="user.id" v-bind="{ 'value': user.showEstimate }" v-bind:class="{ 'max': (user.rank > 0), 'min': (user.rank < 0) }">
-        <span>{{ $root.getEstimationValue(user.showEstimate).value }}</span>
         <span>{{ user.name }}</span>
+        <span>{{ $root.getEstimationValue(user.showEstimate).value }}</span>
       </li>
     </ul>
 
-    <span>Average Estimation</span>
     <ul class="estimate">
-      <li v-if="$root.estimation >= 0">{{ $root.estimation }}</li>
-      <li v-else-if="$root.estimation === -6">↻</li>
-      <li v-else>⏳</li>
+      <li v-if="$root.estimation >= 0">
+        <span>{{ avg }}</span>
+        <span>{{ $root.estimation }}</span>
+      </li>
+      <li v-else-if="$root.estimation === -6" v-on:click="$root.resetEstimation()">
+        <span>↻</span>
+        <span>{{ redo }}</span>
+      </li>
+      <li v-else><span>{{ avg }}</span>
+        <span>⏳</span>
+      </li>
     </ul>
 
     <ul v-if="$root.estimationValues.length" class="cards">
@@ -26,7 +33,9 @@ export default {
   name: 'Estimation',
   data () {
     return {
-      msg: 'Estimation'
+      msg: 'Estimation',
+      avg: 'Average',
+      redo: 'Re-Estimate'
     }
   },
   mounted () {
@@ -59,14 +68,15 @@ div.estimation {
   display: grid;
   border: none;
   color: #000;
-  padding: 1rem;
+  padding: 0.75rem 1rem;
   text-align: center;
   text-decoration: none;
   float: left;
   font-size: 1rem;
-  line-height: 1.5rem;
+  line-height: 2rem;
   border-radius: 8px;
   margin: 0.5rem;
+  box-shadow: 4px 8px 6px #aaa;
 }
 
 ul.estimates li {
@@ -80,7 +90,7 @@ ul.cards li {
 }
 
 ul.estimate li {
-  background-color: #777;
+  background-color: #ff007a;
   color:#fff;
   cursor: pointer;
 }
@@ -88,8 +98,8 @@ ul.estimate li {
 ul.estimates li.max,
 ul.estimates li.min {
   font-weight: bold;
-  background-color:#fff;
-  border: 2px red solid;
+  background-color:#ff8500;
+  border: 2px #000 solid;
 }
 
 </style>

@@ -18,9 +18,9 @@ export default {
   name: 'app',
   data () {
     return {
-      title: '⌂ Planning Poker',
-      about: '? About',
-      next: '↻ Next'
+      title: 'Home',
+      about: 'About',
+      next: 'Next'
     }
   }
 }
