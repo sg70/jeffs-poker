@@ -9,6 +9,7 @@
 
 <script>
 import QRCode from 'vue-qrcode-component'
+import Poker from '../stores/poker'
 
 export default {
   name: 'Invite',
@@ -16,9 +17,9 @@ export default {
     QRCode
   },
   mounted () {
-    if (this.$root.hasSessionCode() === true) {
+    if (Poker.methods.hasSessionCode() === true) {
       const a = document.createElement('a')
-      a.href = this.$router.resolve('/join/' + this.$root.code).href
+      a.href = this.$router.resolve('/join/' + this.poker.code).href
       this.inviteUrl = a.protocol + '//' + a.host + a.pathname + a.search + a.hash
     } else {
       this.$router.push('/')
@@ -26,6 +27,7 @@ export default {
   },
   data () {
     return {
+      poker: Poker.data,
       msg: 'Invite players',
       start: 'Start game',
       inviteRef: 'Use your camera app or copy the url',
@@ -34,7 +36,7 @@ export default {
   },
   methods: {
     toEstimation: function (event) {
-      this.$root.setUsername()
+      Poker.methods.setUsername()
       this.$router.push('/estimation')
     }
   }

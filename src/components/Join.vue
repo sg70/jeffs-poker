@@ -1,7 +1,7 @@
 <template>
     <div class="join">
       <h1>{{ msg }}</h1>
-      <input type="text" name="name" placeholder="Enter Name" v-model="$root.name" v-on:keyup.enter="toEstimation">
+      <input type="text" name="name" placeholder="Enter Name" v-model="poker.name" v-on:keyup.enter="toEstimation">
       <ul v-if="errors.length">
         <li v-for="error in errors" v-bind:key="error">{{ error }}</li>
       </ul>
@@ -10,11 +10,14 @@
 </template>
 
 <script>
+import Poker from '../stores/poker'
+
 export default {
   name: 'Join',
   props: ['id'],
   data () {
     return {
+      poker: Poker.data,
       errors: [],
       msg: 'Join game',
       enter: 'Join',
@@ -25,11 +28,11 @@ export default {
     toEstimation: function (event) {
       if (this.clicked === false) {
         this.clicked = true
-        if (this.$root.hasUsername()) {
-          this.$root.validateCode(this.id).then(valid => {
+        if (Poker.methods.hasUsername()) {
+          Poker.methods.validateCode(this.$root.db, this.id).then(valid => {
             this.errors = []
             if (valid) {
-              this.$root.setUsername()
+              Poker.methods.setUsername(this.$root.db)
               this.$router.push('/estimation')
             } else {
               this.$router.push('/')

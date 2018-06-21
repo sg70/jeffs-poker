@@ -6,7 +6,7 @@
     <footer class="tabbar">
       <ul>
         <li class="one"><router-link to="/">{{ title }}</router-link></li>
-        <li v-if="$root.isHost" v-on:click="$root.resetEstimation()">{{ next }}</li>
+        <li v-if="poker.isHost" v-on:click="resetEstimation()">{{ next }}</li>
         <li class="two"><router-link to="/about">{{ about }}</router-link></li>
       </ul>
     </footer>
@@ -14,13 +14,21 @@
 </template>
 
 <script>
+import Poker from './stores/poker'
+
 export default {
   name: 'app',
   data () {
     return {
+      poker: Poker.data,
       title: 'Home',
       about: 'About',
       next: 'Next'
+    }
+  },
+  methods: {
+    resetEstimation: function () {
+      return Poker.methods.resetEstimation(this.$root.db)
     }
   }
 }
@@ -121,6 +129,10 @@ button:hover {
 button:disabled {
   background-color: lightgray;
   color: black;
+}
+
+content > div {
+  padding-bottom: 3rem;
 }
 
 </style>
