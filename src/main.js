@@ -22,8 +22,14 @@ Vue.use(VueAnalytics, {
   checkDuplicatedScript: true,
   router,
   autoTracking: {
-    screenview: true,
-    exception: true
+    exception: true,
+    pageviewTemplate (route) {
+      return {
+        page: route.path,
+        title: route.name,
+        location: window.location.href
+      }
+    }
   },
   debug: {
     enabled: process.env.NODE_ENV !== 'production'

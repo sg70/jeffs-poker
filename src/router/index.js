@@ -17,7 +17,7 @@ export default new Router({
     },
     {
       path: '/join/:id',
-      name: 'join',
+      name: 'Join',
       component: Join,
       props: (route) => ({id: route.params.id})
     },
