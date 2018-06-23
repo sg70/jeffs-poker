@@ -1,6 +1,5 @@
 <template>
   <div class="estimation">
-    <h1>{{ msg }}</h1>
     <ul v-if="users.length > 0" class="estimates">
       <li v-for="user in users" v-bind:key="user.id" v-bind="{ 'value': user.showEstimate }" v-bind:class="{ 'max': (user.rank > 0), 'min': (user.rank < 0) }">
         <span>{{ user.name }}</span>
@@ -36,7 +35,6 @@ export default {
   data () {
     return {
       poker: Poker.data,
-      msg: 'Estimation',
       avg: 'Average',
       redo: 'Re-Estimate',
       // users in session
@@ -44,18 +42,9 @@ export default {
       // average estimation
       estimation: -4,
       // possible estimation values
+      estimationSteps: 15,
       estimationValues: [
-        { value: '0', key: 0, show: true },
-        { value: '1', key: 1, show: true },
-        { value: '2', key: 2, show: true },
-        { value: '3', key: 3, show: true },
-        { value: '5', key: 5, show: true },
-        { value: '8', key: 8, show: true },
-        { value: '13', key: 13, show: true },
-        { value: '21', key: 21, show: true },
-        { value: '34', key: 34, show: true },
-        { value: '55', key: 55, show: true },
-        { value: '89', key: 89, show: true },
+        { value: '0', key: 0, show: true }, // initial fibonacci value
         { value: '∞', key: -1, show: true }, // infinity
         { value: '?', key: -2, show: true }, // unsure
         { value: '☕', key: -3, show: true }, // break
@@ -67,11 +56,22 @@ export default {
   mounted () {
     if (Poker.methods.hasUserAndSession() === true) {
       this.getUsers()
+      this.initEstimationValues(this.estimationSteps)
     } else {
       this.$router.push('/')
     }
   },
   methods: {
+    initEstimationValues: function (steps) {
+      for (var i = 1; i < steps; i++) {
+        var fibonacci = this.fibonacci(i)
+        this.estimationValues.splice(i, 0, { value: fibonacci, key: fibonacci, show: true })
+      }
+    },
+    fibonacci: function (n) {
+      if (n <= 1) return 1
+      return this.fibonacci(n - 1) + this.fibonacci(n - 2)
+    },
     getEstimationValue: function (key) {
       return this.estimationValues.find(o => o.key === key)
     },
@@ -174,7 +174,7 @@ div.estimation {
   display: inline-block;
   margin: 0;
   width: 100%;
-  padding: 0.5rem;
+  padding: 0.5rem 0rem;
 }
 
 .estimation ul li {
@@ -190,6 +190,7 @@ div.estimation {
   border-radius: 8px;
   margin: 0.5rem;
   box-shadow: 4px 8px 6px #aaa;
+  min-width: 1.25rem;
 }
 
 ul.estimates li {

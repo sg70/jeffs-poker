@@ -42,18 +42,29 @@ html,body {
   margin: 0;
   padding: 0;
   text-rendering: optimizeLegibility;
-  height: 100%;
   background-color: #eee;
   color:#000;
   font-size: 15px;
 }
-@media (min-width: 375px)  {
+@media (min-width: 400px)  {
   html,body {
-    font-size: 18px;
+    font-size: 17px;
+  }
+}
+
+@media (min-width: 450px)  {
+  html,body {
+    font-size: 19px;
   }
 }
 
 @media (min-width: 600px)  {
+  html,body {
+    font-size: 22px;
+  }
+}
+
+@media (min-width: 1000px)  {
   html,body {
     font-size: 24px;
   }

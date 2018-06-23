@@ -22,7 +22,7 @@ module.exports = {
       .assert.elementCount('button', 1)
       .click('button')
       .waitForElementVisible('div[class=estimation]')
-      .assert.containsText('h1', 'Estimation')
+      .assert.containsText('ul[class=estimate]', 'Average')
       .click('.cards li')
       .end()
   }

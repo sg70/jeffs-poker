@@ -24,7 +24,7 @@ describe('Estimation.vue', () => {
       },
       components: { 'test': Estimation }
     }).$mount()
-    expect(vm.$el.querySelector('h1').textContent).to.equal('Estimation')
+    expect(vm.$el.querySelector('ul.estimate > li > span').textContent).to.equal('Average')
     done()
   })
 
@@ -46,7 +46,7 @@ describe('Estimation.vue', () => {
       },
       components: { 'test': Estimation }
     }).$mount()
-    expect(vm.$el.querySelector('h1').textContent).to.equal('Estimation')
+    expect(vm.$el.querySelector('ul.estimate > li > span').textContent).to.equal('Average')
     done()
   })
 })
