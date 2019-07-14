@@ -9,22 +9,13 @@ Jeff's Planning Poker
 npm install
 
 # serve with hot reload at localhost:8080
-npm run dev
+quasar dev
 
 # build for production with minification
-npm run build
-
-# build for production and view the bundle analyzer report
-npm run build --report
-
-# run unit tests
-npm run unit
-
-# run e2e tests
-npm run e2e
+quasar build
 
 # run all tests
-npm test
+quasar test
 ```
 
-For detailed explanation on how things work, checkout the [guide](http://vuejs-templates.github.io/webpack/) and [docs for vue-loader](http://vuejs.github.io/vue-loader).
+For detailed explanation on how things work, checkout the [guide](https://quasar.dev/start/quasar-cli).
