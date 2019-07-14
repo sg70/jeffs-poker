@@ -1,40 +1,26 @@
 import Vue from 'vue'
-import Router from 'vue-router'
-import Start from '@/components/Start'
-import Join from '@/components/Join'
-import Invite from '@/components/Invite'
-import Estimation from '@/components/Estimation'
-import About from '@/components/About'
+import VueRouter from 'vue-router'
 
-Vue.use(Router)
+import routes from './routes'
 
-export default new Router({
-  routes: [
-    {
-      path: '/',
-      name: 'Start',
-      component: Start
-    },
-    {
-      path: '/join/:id',
-      name: 'Join',
-      component: Join,
-      props: (route) => ({id: route.params.id})
-    },
-    {
-      path: '/invite',
-      name: 'Invite',
-      component: Invite
-    },
-    {
-      path: '/estimation',
-      name: 'Estimation',
-      component: Estimation
-    },
-    {
-      path: '/about',
-      name: 'About',
-      component: About
-    }
-  ]
-})
+Vue.use(VueRouter)
+
+/*
+ * If not building with SSR mode, you can
+ * directly export the Router instantiation
+ */
+
+export default function (/* { store, ssrContext } */) {
+  const Router = new VueRouter({
+    scrollBehavior: () => ({ x: 0, y: 0 }),
+    routes,
+
+    // Leave these as is and change from quasar.conf.js instead!
+    // quasar.conf.js -> build -> vueRouterMode
+    // quasar.conf.js -> build -> publicPath
+    mode: process.env.VUE_ROUTER_MODE,
+    base: process.env.VUE_ROUTER_BASE
+  })
+
+  return Router
+}

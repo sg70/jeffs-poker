@@ -1,18 +1,25 @@
+.quasar
+.firebase
 .DS_Store
-node_modules/
-/dist/
+.thumbs.db
+/node_modules
+/dist
+/src-cordova/node_modules
+/src-cordova/platforms
+/src-cordova/plugins
+/src-cordova/www
 npm-debug.log*
+package-lock.json
 yarn-debug.log*
 yarn-error.log*
-/test/unit/coverage
-/test/e2e/reports
-selenium-debug.log
-*-lock.json
-/.vscode/
 
 # Editor directories and files
 .idea
+.vscode
 *.suo
 *.ntvs*
 *.njsproj
 *.sln
+
+.dev.env
+.prod.env

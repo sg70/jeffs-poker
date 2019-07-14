@@ -1,6 +1,6 @@
 {
   "hosting": {
-    "public": "dist",
+    "public": "dist/spa",
     "ignore": [
       "firebase.json",
       "**/.*",
@@ -14,7 +14,7 @@
     ],
     "headers": [
       {
-        "source" : "**/*.@(png|jpg|gif|svg|ico|js|css|map)",
+        "source" : "**/*.@(png|jpg|gif|svg|ico|js|css|map|woff|woff2)",
         "headers" : [
           {
             "key" : "Cache-Control",
