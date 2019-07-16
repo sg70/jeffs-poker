@@ -1,7 +1,7 @@
 {
   "name": "jeffs-poker",
   "version": "2.0.0",
-  "description": "A planning poker eeb app",
+  "description": "A planning poker web app",
   "productName": "Jeff’s Planning Poker",
   "cordovaId": "org.cordova.quasar.app",
   "author": "Sven Geisler <sven.geisler@gmail.com>",
