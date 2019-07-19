@@ -99,7 +99,7 @@ const updateNames = ({ commit, state }, estimatedValues) => {
 
 const updateEstimate = ({ commit, state }) => {
   var name = Object.values(state.names).find(o => o.value === -4)
-  if (name === undefined) {
+  if (name === undefined) { // all participants did their estimation
     var numEstimations = 0
     var sumEstimations = 0
     var estimatedValues = []

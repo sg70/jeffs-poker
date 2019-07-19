@@ -30,5 +30,4 @@ export default {
 </script>
 
 <style>
-p { font-size: 1.2rem; }
 </style>

@@ -1,6 +1,6 @@
 <template>
   <q-page class="q-ma-md">
-    <h4>{{ joinTitle }}</h4>
+    <h5>{{ joinTitle }}</h5>
     <name :id=id />
     </q-page>
 </template>
@@ -21,5 +21,4 @@ export default {
 </script>
 
 <style>
-p { font-size: 1.2rem; }
 </style>
