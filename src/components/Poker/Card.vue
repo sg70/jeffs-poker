@@ -4,7 +4,7 @@
       <q-item-label class="text-subtitle2">
         {{ card.name }}
       </q-item-label>
-      <q-item-label class="text-h5">
+      <q-item-label class="text-h5" :class="textColorClass">
         {{ card.label }}
       </q-item-label>
     </q-item-section>
@@ -13,7 +13,7 @@
 
 <script>
 export default {
-  props: ['card', 'id', 'color'],
+  props: ['card', 'id', 'color', 'textColor'],
   computed: {
     backgroundColor: function () {
       return (this.color) ? this.color : 'bg-info'
@@ -28,6 +28,9 @@ export default {
         }
       }
       return bgColor
+    },
+    textColorClass: function () {
+      return (this.textColor) ? this.textColor : 'text-black'
     }
   }
 }

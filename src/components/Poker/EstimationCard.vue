@@ -1,16 +1,22 @@
 <template>
   <div v-if="card.show" @click="doEstimate(card)">
-    <card :card="card" :id="id" />
+    <card :card="card" :id="id" :textColor="textColor" />
   </div>
 </template>
 
 <script>
-import { mapActions } from 'vuex'
+import { mapActions, mapGetters } from 'vuex'
 
 export default {
   props: ['card', 'id'],
   components: {
     'card': require('components/Poker/Card.vue').default
+  },
+  computed: {
+    textColor: function () {
+      return (this.chickenMode) ? 'text-grey-5' : 'text-black'
+    },
+    ...mapGetters('poker', ['chickenMode'])
   },
   methods: {
     doEstimate: function (card) {
