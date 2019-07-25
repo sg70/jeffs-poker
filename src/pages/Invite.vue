@@ -6,11 +6,13 @@
     </a>
     <p v-html="inviteText"></p>
     <q-btn color="primary" :label="startGameBtnLabel" to="/" />
+    <q-space />
+    <q-btn color="secondary" :label="resetGameLabel" @click="resetGame" />
   </q-page>
 </template>
 
 <script>
-import { mapGetters } from 'vuex'
+import { mapActions, mapGetters } from 'vuex'
 import QRCode from 'vue-qrcode-component'
 
 export default {
@@ -24,7 +26,13 @@ export default {
       a.href = this.$router.resolve('/join/' + this.sessionId).href
       return a.href
     },
-    ...mapGetters('poker', ['inviteTitle', 'inviteText', 'sessionId', 'startGameBtnLabel'])
+    ...mapGetters('poker', ['inviteTitle', 'inviteText', 'sessionId', 'startGameBtnLabel', 'resetGameLabel'])
+  },
+  methods: {
+    resetGame: function () {
+      this.createSession()
+    },
+    ...mapActions('poker', ['createSession'])
   }
 }
 </script>

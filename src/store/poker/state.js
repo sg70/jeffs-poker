@@ -65,5 +65,6 @@ export default {
   nameFieldError: 'Name is required',
   startGameBtnLabel: 'Start game',
   chickenToggleLabel: 'Chicken mode',
-  reEstimateLabel: 'Re-Estimate'
+  reEstimateLabel: 'Re-Estimate',
+  resetGameLabel: 'Clear & Restart'
 }

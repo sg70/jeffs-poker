@@ -58,7 +58,7 @@ const initFirebase = ({ commit, state }) => {
   firebase.initializeApp(firebaseConfig)
 
   firebase.auth().signInAnonymously().catch((error) => {
-    console.error('resetEstimation signInAnonymously error: ' + error)
+    console.error('initFirebase signInAnonymously error: ' + error)
   })
 
   firebase.auth().onAuthStateChanged((user) => {
@@ -289,5 +289,6 @@ export {
   initState,
   startSession,
   resetEstimation,
-  setChickenMode
+  setChickenMode,
+  createSession
 }

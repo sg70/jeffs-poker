@@ -78,6 +78,10 @@ const reEstimateLabel = (state) => {
   return state.reEstimateLabel
 }
 
+const resetGameLabel = (state) => {
+  return state.resetGameLabel
+}
+
 const chickenMode = (state) => {
   return state.chickenMode
 }
@@ -110,6 +114,7 @@ export {
   startGameBtnLabel,
   chickenToggleLabel,
   reEstimateLabel,
+  resetGameLabel,
   chickenMode,
   estimationValueLabel
 }
