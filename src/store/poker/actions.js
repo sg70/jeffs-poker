@@ -18,7 +18,43 @@ const fibonacci = (n) => {
   return fibonacci(n - 1) + fibonacci(n - 2)
 }
 
-const initFirebase = ({ commit }) => {
+// fireabase user: state
+// user.displayName: sessionId
+// user.photoURL: userId
+
+const updateUserProfile = ({ commit, state }) => {
+  var user = firebase.auth().currentUser
+  user.updateProfile({
+    displayName: state.sessionId,
+    photoURL: state.userId
+  }).catch(error => {
+    console.error('updateUserProfile firestore error: ' + error)
+  })
+}
+
+const restoreUserProfile = ({ commit, state }, authUser) => {
+  if (authUser.displayName !== null && authUser.photoURL !== null) {
+    var docRef = firestore.collection('sessions').doc(authUser.displayName)
+    docRef.get().then(doc => {
+      if (doc.exists) {
+        var userRef = firestore.collection('sessions').doc(doc.id).collection('players').doc(authUser.photoURL)
+        userRef.get().then(user => {
+          commit('setUserId', user.id)
+          commit('setName', user.data().name)
+          commit('setSessionId', doc.id)
+          registerForUsersChanges({ commit, state })
+          sendEstimate({ commit, state }, -4)
+        }).catch(error => {
+          console.error('restoreUserProfile firestore error: ' + error)
+        })
+      }
+    }).catch(error => {
+      console.error('restoreUserProfile firestore error: ' + error)
+    })
+  }
+}
+
+const initFirebase = ({ commit, state }) => {
   firebase.initializeApp(firebaseConfig)
 
   firebase.auth().signInAnonymously().catch((error) => {
@@ -28,6 +64,7 @@ const initFirebase = ({ commit }) => {
   firebase.auth().onAuthStateChanged((user) => {
     if (user) {
       commit('setUid', user.uid)
+      restoreUserProfile({ commit, state }, user)
     } else {
       commit('setUid', '')
     }
@@ -52,7 +89,7 @@ const initEstimationValues = ({ commit, state }) => {
 }
 
 const initState = ({ commit, state }) => {
-  initFirebase({ commit })
+  initFirebase({ commit, state })
   initEstimationValues({ commit, state })
 }
 
@@ -67,6 +104,7 @@ const addUser = ({ commit, state }) => {
       estimate: -4
     }).then(userRef => {
       commit('setUserId', userRef.id)
+      updateUserProfile({ commit, state })
     }).catch(error => {
       console.error('addUser firestore error: ' + error)
     })
@@ -137,7 +175,7 @@ const updateEstimate = ({ commit, state }) => {
   }
 }
 
-const registerForUsersChanges = ({ commit, getter, state }) => {
+const registerForUsersChanges = ({ commit, state }) => {
   firestore.collection('sessions').doc(state.sessionId).collection('players').onSnapshot(snapshot => {
     snapshot.docChanges().forEach(change => {
       if (change.type === 'removed') {
@@ -196,9 +234,16 @@ const joinSession = ({ commit, state }, payload) => {
   })
 }
 
+const rejoinSession = ({ commit, state }) => {
+  registerForUsersChanges({ commit, state })
+  router().push({ path: '/' })
+}
+
 const startSession = ({ commit, state }, payload) => {
   if (state.name !== '') {
-    if (payload) {
+    if (payload && payload === state.sessionId && state.userId !== '') {
+      rejoinSession({ commit, state })
+    } else if (payload) {
       joinSession({ commit, state }, payload)
     } else {
       createSession({ commit, state })
